@@ -94,7 +94,9 @@ void menu() {
                 case 'e': LUFactorizationMethod();
                     menu();
                     break;
-                default : cout << "Choose correct option." << endl;
+                default : 
+                    cout << "Choose correct option." << endl;
+                    menu();
             }
             break;
         
@@ -120,7 +122,9 @@ void menu() {
                 case 'd': newtonRaphsonMethod();
                     menu();
                     break;
-                default : cout << "Choose correct option." << endl;
+                default : 
+                    cout << "Choose correct option." << endl;
+                    menu();
             }
             break;
 
@@ -147,7 +151,9 @@ void menu() {
             return;
             break;
 
-        default : cout << "Choose correct option." << endl;
+        default : 
+            cout << "Choose correct option." << endl;
+            menu();
     }
 
 }
