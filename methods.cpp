@@ -51,7 +51,53 @@ void rungeKuttaMethod() {
 // Matrix Inversion Functions 
 
 void matrixInversion() {
-    cout << "Matrix Inversion code here" << endl;
+    int n;
+    cout << "Enter the order of the matrix: ";
+    cin >> n;
+
+    vector<vector<double>> a(n, vector<double>(n));
+
+    cout << "Enter the matrix elements:" << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> a[i][j];
+        }
+    }
+
+    vector<vector<double>> inverse(n, vector<double>(n, 0));
+
+    // Initialize inverse as an identity matrix
+    for (int i = 0; i < n; i++) {
+        inverse[i][i] = 1;
+    }
+
+    // Perform Gauss-Jordan elimination
+    for (int i = 0; i < n; i++) {
+        double diag = a[i][i];
+        for (int j = 0; j < n; j++) {
+            a[i][j] /= diag;
+            inverse[i][j] /= diag;
+        }
+
+        for (int k = 0; k < n; k++) {
+            if (k != i) {
+                double factor = a[k][i];
+                for (int j = 0; j < n; j++) {
+                    a[k][j] -= factor * a[i][j];
+                    inverse[k][j] -= factor * inverse[i][j];
+                }
+            }
+        }
+    }
+
+    // Display the inverse matrix
+    cout << "Inverse matrix:" << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << inverse[i][j] << " ";
+        }
+        cout << endl;
+    }
 }
 
 void menu() {
