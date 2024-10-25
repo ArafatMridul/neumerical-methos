@@ -44,14 +44,104 @@ void newtonRaphsonMethod() {
 
 // Solution of Differential Equations Funtions
 
+double evaluateDerivative(vector<double>& coefficients, double x) {
+    double result = 0;
+    int degree = coefficients.size() - 1;
+
+    for (int i = 0; i < degree; ++i) {
+        result += coefficients[i] * (degree - i) * pow(x, degree - i - 1);
+    }
+    return result;
+}
+
 void rungeKuttaMethod() {
-    cout << "Runge-Kutta Method code here" << endl;
+    int degree;
+    cout << "Enter the degree of the polynomial: ";
+    cin >> degree;
+
+    // Read coefficients from user
+    vector<double> coefficients(degree + 1);
+    cout << "Enter the coefficients (from highest degree to lowest):\n";
+    for (int i = 0; i <= degree; ++i) {
+        cin >> coefficients[i];
+    }
+
+    double x0, y0, x, h;
+    cout << "Enter initial values of x0 and y0: ";
+    cin >> x0 >> y0;
+    cout << "Enter the x value to find y at: ";
+    cin >> x;
+    cout << "Enter step size h: ";
+    cin >> h;
+
+    int n = (int)((x - x0) / h);  // Number of steps
+    double y = y0;
+
+    for (int i = 0; i < n; i++) {
+        double k1 = h * evaluateDerivative(coefficients, x0);
+        double k2 = h * evaluateDerivative(coefficients, x0 + h / 2);
+        double k3 = h * evaluateDerivative(coefficients, x0 + h / 2);
+        double k4 = h * evaluateDerivative(coefficients, x0 + h);
+
+        // Update next value of y
+        y += (k1 + 2 * k2 + 2 * k3 + k4) / 6;
+
+        // Move to next point
+        x0 += h;
+    }
+    cout << "The value of y at x = " << x << " is: " << y << "\n";
 }
 
 // Matrix Inversion Functions 
 
 void matrixInversion() {
-    cout << "Matrix Inversion code here" << endl;
+    int n;
+    cout << "Enter the order of the matrix: ";
+    cin >> n;
+
+    vector<vector<double>> a(n, vector<double>(n));
+
+    cout << "Enter the matrix elements:" << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> a[i][j];
+        }
+    }
+
+    vector<vector<double>> inverse(n, vector<double>(n, 0));
+
+    // Initialize inverse as an identity matrix
+    for (int i = 0; i < n; i++) {
+        inverse[i][i] = 1;
+    }
+
+    // Perform Gauss-Jordan elimination
+    for (int i = 0; i < n; i++) {
+        double diag = a[i][i];
+        for (int j = 0; j < n; j++) {
+            a[i][j] /= diag;
+            inverse[i][j] /= diag;
+        }
+
+        for (int k = 0; k < n; k++) {
+            if (k != i) {
+                double factor = a[k][i];
+                for (int j = 0; j < n; j++) {
+                    a[k][j] -= factor * a[i][j];
+                    inverse[k][j] -= factor * inverse[i][j];
+                }
+            }
+        }
+    }
+
+    // Display the inverse matrix
+    cout << "Inverse matrix:" << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << inverse[i][j] << " ";
+        }
+        cout << endl;
+    }
 }
 
 void menu() {
