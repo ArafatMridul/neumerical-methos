@@ -576,22 +576,4 @@ The most common way to invert a matrix is by using the Gauss-Jordan elimination 
 3. **Result**  
    Once \( A \) has been transformed into \( I \), the augmented portion will become \( A^{-1} \).
 
-## Applications
-
-Matrix inversion is used in:
-- Solving linear systems of equations \( Ax = b \), where \( x = A^{-1} b \).
-- Linear transformations and coordinate transformations.
-- Engineering and physics problems involving control systems, dynamics, and optimization.
-
-## Advantages and Limitations
-
-### Advantages
-- Provides an exact solution when the matrix is invertible.
-- Useful in solving systems of linear equations and various applications in linear algebra.
-
-### Limitations
-- Computationally intensive for large matrices.
-- Not all matrices have inverses; only non-singular matrices can be inverted.
-- Numerically unstable for matrices with very small determinants.
-
 
