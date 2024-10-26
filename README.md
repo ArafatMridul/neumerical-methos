@@ -108,7 +108,7 @@ A numerical technique to find a root of a continuous function.
 
 
 
-### Algorithm Steps
+### Steps in Secant Method
 
 1. *Input*:
    - Define the function \(f(x)\) as a string.
@@ -137,7 +137,7 @@ A numerical technique to find a root of a continuous function.
 
 ## Newton-Raphson Method
 
-### Algorithm Steps
+### Steps in Newton-Raphson Method
 
 1. *Input*:
    - Define the function \(f(x)\) as a string.
