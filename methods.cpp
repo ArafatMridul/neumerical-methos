@@ -10,9 +10,64 @@ void jacobiIterativeMethod() {
 void gaussSeidelIterativeMethod() {
     cout << "Gauss-Seidel iterative method code here" << endl;
 }
+// Gauss Elimination Method
 
+void format(int n,vector<vector<long double>>&matrix)
+{
+    long double err=1e-5;
+    for(int i=0; i<n; i++)
+    {
+        if(abs(matrix[i][i])<=0)
+        {
+            for(int j=i+1; j<n; j++)
+            {
+                if(abs(matrix[j][i])>err)
+                {
+                    swap(matrix[i],matrix[j]);
+                }
+            }
+        }
+    }
+}
 void gaussEliminationMethod() {
-    cout << "Gauss Elimination method code here" << endl;
+    long double err=1e-5;
+    int n;
+    cin>>n;
+    vector<vector<long double>>matrix;
+    matrix.assign(n,vector<long double>(n+1));
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<=n; j++)
+        {
+            cin>>matrix[i][j];
+        }
+    }
+    for(int j=0; j<n-1; j++)
+    {
+        format(n,matrix);
+        for(int i=j+1; i<n; i++)
+        {
+            if(abs(matrix[i][j])>=err)
+            {
+                long double mag=-matrix[i][j]/matrix[j][j];
+                for(int k=j; k<=n; k++)
+                {
+                    matrix[i][k]=matrix[i][k]+mag*matrix[j][k];
+                }
+            }
+        }
+    }
+    vector<long double>ans(n);
+    for(int i=n-1;i>=0;i--)
+    {
+        ans[i]=matrix[i][n];
+        for(int j=i+1;j<n;j++)
+        {
+            ans[i]=ans[i]-matrix[i][j]*ans[j];
+        }
+        ans[i]=ans[i]/matrix[i][i];
+    }
+    for(auto it:ans)cout<<it<<" "; cout<<"\n";
 }
 
 void gaussJordanEliminationMethod() {
