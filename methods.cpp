@@ -170,7 +170,54 @@ void gaussEliminationMethod() {
 
 void gaussJordanEliminationMethod()
 {
-    cout << "Gauss-Jordan Elimination method code here" << endl;
+        long double err=1e-5;
+    cout<<"enter the number of variable:\n";
+    int n;
+    cin>>n;
+    cout<<"Next "<<n<<"lines takes the "<<n+1<<"coefficinets of the variables sequencially.\n";
+    cout<<"For a equation a11x1 + a22x2 = b1  input format is a11 a11 b1\n";
+    vector<vector<long double>>matrix;
+    matrix.assign(n,vector<long double>(n+1));
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<=n; j++)
+        {
+            cin>>matrix[i][j];
+        }
+    }
+    for(int j=0; j<n-1; j++)
+    {
+        format(n,matrix);
+        for(int i=j+1; i<n; i++)
+        {
+            if(abs(matrix[i][j])>=err)
+            {
+                long double mag=-matrix[i][j]/matrix[j][j];
+                for(int k=j; k<=n; k++)
+                {
+                    matrix[i][k]=matrix[i][k]+mag*matrix[j][k];
+                }
+            }
+        }
+    }
+    for(int j=n-1; j>0; j--)
+    {
+        for(int i=j-1; i>=0; i--)
+        {
+            if(abs(matrix[i][j])>=err)
+            {
+                long double mag=-matrix[i][j]/matrix[j][j];
+                for(int k=j; k>i; k--)
+                {
+                    matrix[i][k]=matrix[i][k]+mag*matrix[j][k];
+                }
+                matrix[i][n]=matrix[i][n]+mag*matrix[j][n];
+            }
+        }
+    }
+    vector<long double>ans(n);
+    for(int i=0;i<n;i++)ans[i]=matrix[i][n]/matrix[i][i];
+    for(auto it:ans)cout<<it<<" "; cout<<"\n";
 }
 
 void LUFactorizationMethod()
