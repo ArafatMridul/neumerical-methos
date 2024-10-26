@@ -4,10 +4,10 @@ using namespace std;
 // Solution of Linear Equations Functions
 
 void jacobiIterativeMethod() {
-    cout<<"enter the number of variable:\n"
+    cout<<"enter the number of variable:\n";
     int n;
     cin>>n;
-    cout<<"Next "<<n<<"lines takes the "<<n+1<<"coefficinets of the variables sequencially.\n"
+    cout<<"Next "<<n<<"lines takes the "<<n+1<<"coefficinets of the variables sequencially.\n";
     cout<<"For a equation a11x1 + a22x2 = b1  input format is a11 a11 b1\n";
     vector<vector<long double>>matrix;
     matrix.assign(n,vector<long double>(n+1));
@@ -58,10 +58,10 @@ void jacobiIterativeMethod() {
 // Gauss Seidel elimination
 void gaussSeidelIterativeMethod() {
     long double err=1e-5;
-    cout<<"enter the number of variable:\n"
+    cout<<"enter the number of variable:\n";
     int n;
     cin>>n;
-    cout<<"Next "<<n<<"lines takes the "<<n+1<<"coefficinets of the variables sequencially.\n"
+    cout<<"Next "<<n<<"lines takes the "<<n+1<<"coefficinets of the variables sequencially.\n";
     cout<<"For a equation a11x1 + a22x2 = b1  input format is a11 a11 b1\n";
     vector<vector<long double>>matrix;
     matrix.assign(n,vector<long double>(n+1));
@@ -126,10 +126,10 @@ void format(int n,vector<vector<long double>>&matrix)
 }
 void gaussEliminationMethod() {
     long double err=1e-5;
-    cout<<"enter the number of variable:\n"
+    cout<<"enter the number of variable:\n";
     int n;
     cin>>n;
-    cout<<"Next "<<n<<"lines takes the "<<n+1<<"coefficinets of the variables sequencially.\n"
+    cout<<"Next "<<n<<"lines takes the "<<n+1<<"coefficinets of the variables sequencially.\n";
     cout<<"For a equation a11x1 + a22x2 = b1  input format is a11 a11 b1\n";
     vector<vector<long double>>matrix;
     matrix.assign(n,vector<long double>(n+1));
