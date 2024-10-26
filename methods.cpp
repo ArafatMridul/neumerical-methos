@@ -29,22 +29,22 @@ void LUFactorizationMethod()
 }
 
 // Solution of Non-linear Equations functions
-double evaluateBisectionPolynomial(double x, const std::vector<double> &coefficients)
+double evaluateBisectionPolynomial(double x, vector<double> &coefficients)
 {
     double result = 0.0;
     for (int i = 0; i < coefficients.size(); ++i)
     {
-        result += coefficients[i] * std::pow(x, i);
+        result += coefficients[i] * pow(x, i);
     }
     return result;
 }
-double bisectionMainMethod(const std::vector<double> &coefficients, double a, double b, double tolerance)
+double bisectionMainMethod(vector<double> &coefficients, double a, double b, double tolerance)
 {
     double fa = evaluateBisectionPolynomial(a, coefficients);
     double fb = evaluateBisectionPolynomial(b, coefficients);
     if (fa * fb >= 0)
     {
-        std::cerr << "fa and fb must have diff signs.Bisection Method Fail" << std::endl;
+        cerr << "fa and fb must have diff signs.Bisection Method Fail" << endl;
         return NAN;
     }
     double c;
@@ -69,9 +69,9 @@ double bisectionMainMethod(const std::vector<double> &coefficients, double a, do
     }
     return c;
 }
-std::vector<double> FindTheRoots(const std::vector<double> &coefficients, double start, double end, double step, double tolerance)
+vector<double> FindTheRoots(vector<double> &coefficients, double start, double end, double step, double tolerance)
 {
-    std::vector<double> roots;
+    vector<double> roots;
     double prev = evaluateBisectionPolynomial(start, coefficients);
     for (double x = start; x <= end; x += step)
     {
@@ -90,14 +90,14 @@ void biSectionMethod()
 {
     cout << "Bi-section method code here" << endl;
     int degree;
-    std::cout << "Enter the degree of the polynomial: ";
-    std::cin >> degree;
+    cout << "Enter the degree of the polynomial: ";
+    cin >> degree;
 
-    std::vector<double> coefficients(degree + 1);
-    std::cout << "Enter the coefficient Lowest Degree to Highest Degree:" << std::endl;
+    vector<double> coefficients(degree + 1);
+    cout << "Enter the coefficient Lowest Degree to Highest Degree:" << endl;
     for (int i = 0; i <= degree; ++i)
     {
-        std::cin >> coefficients[i];
+        cin >> coefficients[i];
     }
     double start = -10;
     double end = 10;
@@ -105,25 +105,25 @@ void biSectionMethod()
     double tolerance;
     cout << "Enter the tolerance: ";
     cin >> tolerance;
-    std::vector<double> roots = FindTheRoots(coefficients, start, end, step, tolerance);
+    vector<double> roots = FindTheRoots(coefficients, start, end, step, tolerance);
 
-    std::cout << "Roots found:" << std::endl;
+    cout << "Roots found:" << endl;
     for (double root : roots)
     {
-        std::cout << root << std::endl;
+        cout << root << endl;
     }
 }
-double falsePositionMainMethod(const std::vector<double> &coefficients, double a, double b, double tolerance)
+double falsePositionMainMethod(vector<double> &coefficients, double a, double b, double tolerance)
 {
     double fa = evaluateBisectionPolynomial(a, coefficients);
     double fb = evaluateBisectionPolynomial(b, coefficients);
     if (fa * fb >= 0)
     {
-        std::cerr << "It should have different signs.False Position method Failure" << std::endl;
+        cerr << "It should have different signs.False Position method Failure" << endl;
         return  NAN;
     }
     double c;
-    while (std::fabs(b - a) >= tolerance)
+    while (fabs(b - a) >= tolerance)
     {
         c = (a * fb - b * fa) / (fb - fa);
         double fc = evaluateBisectionPolynomial(c, coefficients);
@@ -145,9 +145,9 @@ double falsePositionMainMethod(const std::vector<double> &coefficients, double a
     }
     return c;
 }
-std::vector<double> FindTheFalsePositionRoots(const std::vector<double> &coefficients, double start, double end, double step, double tol)
+vector<double> FindTheFalsePositionRoots(vector<double> &coefficients, double start, double end, double step, double tol)
 {
-    std::vector<double> roots;
+    vector<double> roots;
     double prev = evaluateBisectionPolynomial(start, coefficients);
 
     for (double x = start; x <= end; x += step)
@@ -171,13 +171,13 @@ void falsePositionMethod()
 {
     cout << "False position method code here" << endl;
     int degree;
-    std::cout << "Enter the degree of the polynomial: ";
-    std::cin >> degree;
-    std::vector<double> coefficients(degree + 1);
-    std::cout << "Enter the coefficients Lowest to Highest Degree Consecutively:" << std::endl;
+    cout << "Enter the degree of the polynomial: ";
+    cin >> degree;
+    vector<double> coefficients(degree + 1);
+    cout << "Enter the coefficients Lowest to Highest Degree Consecutively:" << endl;
     for (int i = 0; i <= degree; ++i)
     {
-        std::cin >> coefficients[i];
+        cin >> coefficients[i];
     }
     double start = -10;
     double end = 10;
@@ -185,17 +185,17 @@ void falsePositionMethod()
     double tolerance;
     cout << "Enter the tolerance: ";
     cin >> tolerance;
-    std::vector<double> roots = FindTheFalsePositionRoots(coefficients, start, end, step, tolerance);
-    std::cout << "Roots found:" << std::endl;
+    vector<double> roots = FindTheFalsePositionRoots(coefficients, start, end, step, tolerance);
+    cout << "Roots found:" << endl;
     for (double root : roots)
     {
-        std::cout << root << std::endl;
+        cout << root << endl;
     }
 }
-double evaluateEquation(const std::string &equationStr, double x)
+double evaluateEquation(string &equationStr, double x)
 {
     double result = 0.0;
-    std::istringstream iss(equationStr);
+    istringstream iss(equationStr);
     char op = '+';
     while (iss)
     {
@@ -253,23 +253,23 @@ double evaluateEquation(const std::string &equationStr, double x)
     return result;
 }
 
-double secantMainMethod(const std::string &equationStr, double x0, double x1, double tolerance, int maxIterations)
+double secantMainMethod(string &equationStr, double x0, double x1, double tolerance, int maxIterations)
 {
     double f0 = evaluateEquation(equationStr, x0);
     double f1 = evaluateEquation(equationStr, x1);
 
     for (int i = 0; i < maxIterations; ++i)
     {
-        if (std::abs(f1 - f0) < 1e-10)
+        if (abs(f1 - f0) < 1e-10)
         {
-            std::cerr << "Function values are too close,and so stopping iteration." << std::endl;
+            cerr << "Function values are too close,and so stopping iteration." << endl;
             return NAN;
         }
 
         double x2 = x1 - f1 * (x1 - x0) / (f1 - f0);
         double f2 = evaluateEquation(equationStr, x2);
 
-        if (std::abs(x2 - x1) < tolerance)
+        if (abs(x2 - x1) < tolerance)
         {
             return x2;
         }
@@ -280,14 +280,14 @@ double secantMainMethod(const std::string &equationStr, double x0, double x1, do
         f1 = f2;
     }
 
-    std::cerr << "Maximum iterations reached without converging ." << std::endl;
+    cerr << "Maximum iterations reached without converging ." << endl;
     return x1;
 }
 
 void secantMethod()
 {
     cout << "Secant method code here" << endl;
-    std::string equation;
+    string equation;
     double x0, x1;
     double tolerance;
     cout << "Enter the tolerance: ";
@@ -296,30 +296,30 @@ void secantMethod()
     cout << "Enter the maximum number of iterations: ";
     cin >> maxIterations;
 
-    std::cout << "Enter the polynomial equation (Enter the equation in string format): ";
-    std::cin.ignore();
-    std::getline(std::cin, equation);
+    cout << "Enter the polynomial equation (Enter the equation in string format): ";
+    cin.ignore();
+    getline(cin, equation);
 
-    std::cout << "Enter the first initial guess: ";
-    std::cin >> x0;
+    cout << "Enter the first initial guess: ";
+    cin >> x0;
 
-    std::cout << "Enter the second initial guess: ";
-    std::cin >> x1;
+    cout << "Enter the second initial guess: ";
+    cin >> x1;
 
     double root = secantMainMethod(equation, x0, x1, tolerance, maxIterations);
-    if (!std::isnan(root))
+    if (!isnan(root))
     {
-        std::cout << "The root is: " << root << std::endl;
+        cout << "The root is: " << root << endl;
     }
     else
     {
-        std::cout << "Failed in finding a root." << std::endl;
+        cout << "Failed in finding a root." << endl;
     }
 }
-double evaluateNewtonDerivative(const std::string &equationStr, double x)
+double evaluateNewtonDerivative(string &equationStr, double x)
 {
     double result = 0.0;
-    std::istringstream iss(equationStr);
+    istringstream iss(equationStr);
     char op = '+';
     while (iss)
     {
@@ -380,7 +380,7 @@ double evaluateNewtonDerivative(const std::string &equationStr, double x)
     return result;
 }
 
-double newtonRaphsonMainMethod(const std::string &equationStr, double initialGuess, double tolerance, int maxIterations)
+double newtonRaphsonMainMethod(string &equationStr, double initialGuess, double tolerance, int maxIterations)
 {
     double x = initialGuess;
     for (int i = 0; i < maxIterations; ++i)
@@ -388,15 +388,15 @@ double newtonRaphsonMainMethod(const std::string &equationStr, double initialGue
         double fx = evaluateEquation(equationStr, x);
         double dfx = evaluateNewtonDerivative(equationStr, x);
 
-        if (std::abs(dfx) < 1e-10)
+        if (abs(dfx) < 1e-10)
         {
-            std::cerr << "Derivative is too small,so stopping iteration." << std::endl;
+            cerr << "Derivative is too small,so stopping iteration." << endl;
             return NAN;
         }
 
         double x_new = x - fx / dfx;
 
-        if (std::abs(x_new - x) < tolerance)
+        if (abs(x_new - x) < tolerance)
         {
             return x_new;
         }
@@ -404,14 +404,14 @@ double newtonRaphsonMainMethod(const std::string &equationStr, double initialGue
         x = x_new;
     }
 
-    std::cerr << "Maximum iterations reached without converging ." << std::endl;
+    cerr << "Maximum iterations reached without converging ." << endl;
     return x;
 }
 
 void newtonRaphsonMethod()
 {
     cout << "Newton-Raphson method code here" << endl;
-    std::string equation;
+    string equation;
     double initialGuess;
     double tolerance;
     cout << "Enter the tolerance: ";
@@ -420,19 +420,19 @@ void newtonRaphsonMethod()
     int maxIterations;
     cout << "Enter the maximum number of iterations: ";
     cin >> maxIterations;
-    std::cout << "Enter the polynomial equation (Enter the equation in string format): ";
-    std::cin.ignore();
-    std::getline(std::cin, equation);
-    std::cout << "Enter the initial guess: ";
-    std::cin >> initialGuess;
+    cout << "Enter the polynomial equation (Enter the equation in string format): ";
+    cin.ignore();
+    getline(cin, equation);
+    cout << "Enter the initial guess: ";
+    cin >> initialGuess;
     double root = newtonRaphsonMainMethod(equation, initialGuess, tolerance, maxIterations);
-    if (!std::isnan(root))
+    if (!isnan(root))
     {
-        std::cout << "The root is: " << root << std::endl;
+        cout << "The root is: " << root << endl;
     }
     else
     {
-        std::cout << "Failed in finding a root." << std::endl;
+        cout << "Failed in finding a root." << endl;
     }
 }
 
