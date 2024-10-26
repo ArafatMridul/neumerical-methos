@@ -542,7 +542,7 @@ To use the Runge-Kutta Method:
 2. Choose a step size \( h \) and an interval over which to compute the solution.
 3. Apply the RK4 steps iteratively to approximate \( y \) at each point.
 
-# Matrix Inversion
+# Matrix Inversion Method
 
 Matrix inversion is the process of finding the **inverse** of a square matrix \( A \), denoted \( A^{-1} \), such that:
 
@@ -575,5 +575,63 @@ The most common way to invert a matrix is by using the Gauss-Jordan elimination 
 
 3. **Result**  
    Once \( A \) has been transformed into \( I \), the augmented portion will become \( A^{-1} \).
+
+Example:
+
+For a matrix \( A = \begin{bmatrix} 2 & 1 \\ 5 & 3 \end{bmatrix} \),
+
+- Set up the augmented matrix:  
+  \[
+  \left[ \begin{array}{cc|cc} 2 & 1 & 1 & 0 \\ 5 & 3 & 0 & 1 \end{array} \right]
+  \]
+
+- Apply row operations until the left side is the identity matrix, and the right side will yield \( A^{-1} \).
+
+### 2. Adjoint Method (for 2x2 or 3x3 Matrices)
+
+For small matrices, \( A^{-1} \) can also be calculated using the **adjoint formula**:
+
+\[
+A^{-1} = \frac{1}{\det(A)} \text{adj}(A)
+\]
+
+where \( \text{adj}(A) \) is the adjugate of \( A \), and \( \det(A) \) is the determinant. This method is practical for 2x2 or 3x3 matrices but becomes computationally expensive for larger matrices.
+
+### 3. LU Decomposition (for Large Matrices)
+
+For larger matrices, **LU decomposition** can be used to find \( A^{-1} \) by decomposing \( A \) into a product of a lower triangular matrix \( L \) and an upper triangular matrix \( U \). This approach is more efficient for computational purposes.
+
+## Example for 2x2 Matrix
+
+For a 2x2 matrix:
+
+\[
+A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}
+\]
+
+The inverse \( A^{-1} \) (if \( \det(A) = ad - bc \neq 0 \)) is given by:
+
+\[
+A^{-1} = \frac{1}{ad - bc} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}
+\]
+
+## Applications
+
+Matrix inversion is used in:
+- Solving linear systems of equations \( Ax = b \), where \( x = A^{-1} b \).
+- Linear transformations and coordinate transformations.
+- Engineering and physics problems involving control systems, dynamics, and optimization.
+
+## Advantages and Limitations
+
+### Advantages
+- Provides an exact solution when the matrix is invertible.
+- Useful in solving systems of linear equations and various applications in linear algebra.
+
+### Limitations
+- Computationally intensive for large matrices.
+- Not all matrices have inverses; only non-singular matrices can be inverted.
+- Numerically unstable for matrices with very small determinants.
+
 
 
