@@ -4,11 +4,106 @@ using namespace std;
 // Solution of Linear Equations Functions
 
 void jacobiIterativeMethod() {
-    cout << "Jacobi iterative method code here" << endl;
+    cout<<"enter the number of variable:\n"
+    int n;
+    cin>>n;
+    cout<<"Next "<<n<<"lines takes the "<<n+1<<"coefficinets of the variables sequencially.\n"
+    cout<<"For a equation a11x1 + a22x2 = b1  input format is a11 a11 b1\n";
+    vector<vector<long double>>matrix;
+    matrix.assign(n,vector<long double>(n+1));
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<=n; j++)
+        {
+            cin>>matrix[i][j];
+        }
+    }
+    long double err=1e-5;
+    vector<long double>cur(n),nxt(n);
+    for(int i=0; i<n; i++)cur[i]=0;
+    for(int i=0; i<n; i++)
+    {
+        if(matrix[i][i]==0)
+        {
+            for(int j=i+1; j<n; j++)
+            {
+                if(matrix[j][i]!=0)
+                {
+                    swap(matrix[i],matrix[j]);
+                }
+            }
+        }
+    }
+    long double dif=100;
+    while(dif>err)
+    {
+        for(int i=0; i<n; i++)
+        {
+            nxt[i]=matrix[i][n];
+            for(int j=0; j<n; j++)
+            {
+                if(i!=j)nxt[i]=nxt[i]-matrix[i][j]*cur[j];
+            }
+            nxt[i]=nxt[i]/matrix[i][i];
+        }
+        dif=0;
+        for(int i=0;i<n;i++)
+        {
+            dif=max(dif,abs(cur[i]-nxt[i]));
+            cur[i]=nxt[i];
+        }
+    }
+    for(int i=0;i<n;i++)cout<<cur[i]<<" "; cout<<"\n";
 }
-
+// Gauss Seidel elimination
 void gaussSeidelIterativeMethod() {
-    cout << "Gauss-Seidel iterative method code here" << endl;
+    long double err=1e-5;
+    cout<<"enter the number of variable:\n"
+    int n;
+    cin>>n;
+    cout<<"Next "<<n<<"lines takes the "<<n+1<<"coefficinets of the variables sequencially.\n"
+    cout<<"For a equation a11x1 + a22x2 = b1  input format is a11 a11 b1\n";
+    vector<vector<long double>>matrix;
+    matrix.assign(n,vector<long double>(n+1));
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<=n; j++)
+        {
+            cin>>matrix[i][j];
+        }
+    }
+    vector<long double>cur(n);
+    for(int i=0; i<n; i++)cur[i]=0;
+    for(int i=0; i<n; i++)
+    {
+        if(matrix[i][i]==0)
+        {
+            for(int j=i+1; j<n; j++)
+            {
+                if(matrix[j][i]!=0)
+                {
+                    swap(matrix[i],matrix[j]);
+                }
+            }
+        }
+    }
+    long double dif=100;
+    while(dif>err)
+    {
+        dif=0;
+        for(int i=0; i<n; i++)
+        {
+            long double pre=cur[i];
+            cur[i]=matrix[i][n];
+            for(int j=0; j<n; j++)
+            {
+                if(i!=j)cur[i]=cur[i]-matrix[i][j]*cur[j];
+            }
+            cur[i]=cur[i]/matrix[i][i];
+            dif=max(dif,abs(cur[i]-pre));
+        }
+    }
+    for(int i=0;i<n;i++)cout<<cur[i]<<" "; cout<<"\n";
 }
 // Gauss Elimination Method
 
@@ -31,8 +126,11 @@ void format(int n,vector<vector<long double>>&matrix)
 }
 void gaussEliminationMethod() {
     long double err=1e-5;
+    cout<<"enter the number of variable:\n"
     int n;
     cin>>n;
+    cout<<"Next "<<n<<"lines takes the "<<n+1<<"coefficinets of the variables sequencially.\n"
+    cout<<"For a equation a11x1 + a22x2 = b1  input format is a11 a11 b1\n";
     vector<vector<long double>>matrix;
     matrix.assign(n,vector<long double>(n+1));
     for(int i=0; i<n; i++)
