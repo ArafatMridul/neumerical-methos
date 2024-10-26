@@ -1,5 +1,60 @@
 # neumerical-methos
 
+# Linear Equations
+Linear equations are algebraic equations where each term is either a constant or the product of a constant and a single variable. They graph as straight lines on a coordinate plane. 
+
+## Jacobi Iterative Method
+
+The Jacobi Iterative Method is an algorithm for solving systems of linear equations. It’s useful for large systems where direct methods, like Gaussian elimination, become impractical. This method iteratively updates each variable based on the values from the previous iteration.
+
+## Problem Setup
+
+We aim to solve a system of linear equations represented by:
+
+\[
+Ax = b
+\]
+
+where:
+- \( A \) is a square matrix (coefficients of the system),
+- \( x \) is the vector of unknowns,
+- \( b \) is the result vector.
+
+The Jacobi method is particularly effective if \( A \) is diagonally dominant or if the system is otherwise suitable for convergence.
+
+## Steps of the Jacobi Iterative Method
+
+1. **Rewrite Equations**  
+   Rewrite each equation to isolate \( x_i \) in terms of other variables:
+
+   \[
+   a_{ii} x_i = b_i - \sum_{j \neq i} a_{ij} x_j
+   \]
+
+2. **Initial Guess**  
+   Choose an initial guess \( x^{(0)} \) for the solution vector \( x \). Often, \( x^{(0)} = 0 \) is used.
+
+3. **Iterate**  
+   For each iteration \( k \), update each \( x_i \) as:
+
+   \[
+   x_i^{(k+1)} = \frac{1}{a_{ii}} \left(b_i - \sum_{j \neq i} a_{ij} x_j^{(k)}\right)
+   \]
+
+   **Note**: Use values from the previous iteration, \( x^{(k)} \), not from the current iteration.
+
+4. **Check Convergence**  
+   After each iteration, check if the solution has converged by evaluating:
+
+   \[
+   ||x^{(k+1)} - x^{(k)}|| < \epsilon
+   \]
+
+   where \( \epsilon \) is a small positive tolerance level. If this condition is met, the method has converged, and \( x^{(k+1)} \) is an approximate solution. Otherwise, repeat the iteration.
+
+5. **Repeat Until Convergence**
+
+
 # Non-Linear Equations
 An equation whose variable is raised to a power greater than one or is involved in functions like trigonometric, exponential.
 
@@ -106,5 +161,5 @@ A numerical technique to find a root of a continuous function.
    - If the maximum iterations are reached without converging, print a message and return the last approximation \(x\).
 
 
-
+# 
 
