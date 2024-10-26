@@ -220,9 +220,129 @@ void gaussJordanEliminationMethod()
     for(auto it:ans)cout<<it<<" "; cout<<"\n";
 }
 
+// LU Factorization
+
+void luFactorization(const vector<vector<double>>& A, vector<vector<double>>& L, vector<vector<double>>& U) {
+    int n = A.size();
+    
+    // Initialize L and U matrices
+    L.resize(n, vector<double>(n, 0));
+    U.resize(n, vector<double>(n, 0));
+    
+    for (int i = 0; i < n; i++) {
+        // Upper Triangular U
+        for (int j = i; j < n; j++) {
+            U[i][j] = A[i][j];
+            for (int k = 0; k < i; k++) {
+                U[i][j] -= L[i][k] * U[k][j];
+            }
+        }
+        
+        // Lower Triangular L
+        for (int j = i; j < n; j++) {
+            if (i == j) {
+                L[i][i] = 1; // Diagonal elements are set to 1
+            } else {
+                L[j][i] = A[j][i];
+                for (int k = 0; k < i; k++) {
+                    L[j][i] -= L[j][k] * U[k][i];
+                }
+                L[j][i] /= U[i][i];
+            }
+        }
+    }
+}
+
+// Function to solve Ly = b using forward substitution
+vector<double> forwardSubstitution(const vector<vector<double>>& L, const vector<double>& b) {
+    int n = L.size();
+    vector<double> y(n);
+
+    for (int i = 0; i < n; i++) {
+        y[i] = b[i];
+        for (int j = 0; j < i; j++) {
+            y[i] -= L[i][j] * y[j];
+        }
+    }
+    return y;
+}
+
+// Function to solve Ux = y using backward substitution
+vector<double> backwardSubstitution(const vector<vector<double>>& U, const vector<double>& y) {
+    int n = U.size();
+    vector<double> x(n);
+
+    for (int i = n - 1; i >= 0; i--) {
+        x[i] = y[i];
+        for (int j = i + 1; j < n; j++) {
+            x[i] -= U[i][j] * x[j];
+        }
+        x[i] /= U[i][i];
+    }
+    return x;
+}
+
+// Function to print a matrix
+void printMatrix(const vector<vector<double>>& matrix) {
+    for (const auto& row : matrix) {
+        for (double value : row) {
+            cout << setw(10) << value << " ";
+        }
+        cout << endl;
+    }
+}
+
 void LUFactorizationMethod()
 {
-    cout << "LU factorization method code here" << endl;
+    int n;
+
+    cout << "Enter the size of the matrix (n x n): ";
+    cin >> n;
+
+    vector<vector<double>> A(n, vector<double>(n));
+    vector<double> b(n);
+
+    cout << "Enter the elements of the matrix A:" << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> A[i][j];
+        }
+    }
+
+    cout << "Enter the elements of the vector b:" << endl;
+    for (int i = 0; i < n; i++) {
+        cout << "b[" << i << "] = ";
+        cin >> b[i];
+    }
+
+    vector<vector<double>> L, U;
+
+    // Perform LU Factorization
+    luFactorization(A, L, U);
+
+    cout << "Matrix L:" << endl;
+    printMatrix(L);
+
+    cout << "Matrix U:" << endl;
+    printMatrix(U);
+
+    // Solve Ly = b
+    vector<double> y = forwardSubstitution(L, b);
+
+    cout << "Intermediate vector y after forward substitution:" << endl;
+    for (double val : y) {
+        cout << val << " ";
+    }
+    cout << endl;
+
+    // Solve Ux = y
+    vector<double> x = backwardSubstitution(U, y);
+
+    cout << "Solution vector x:" << endl;
+    for (double val : x) {
+        cout << val << " ";
+    }
+    cout << endl;
 }
 
 // Solution of Non-linear Equations functions
